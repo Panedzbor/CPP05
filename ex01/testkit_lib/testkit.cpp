@@ -1,10 +1,5 @@
 #include "testkit.hpp"
 
-void showOptions()
-{
-
-}
-
 std::string collectString()
 {
     std::string str;
