@@ -15,6 +15,12 @@ int main(int argc, char * argv[])
     {
         Bureaucrat b(name, grade);
         std::cout << b;
+        std::cout << "Increment grade: ";
+        b.incrementGrade();
+        std::cout << b.getGrade() << "\n";
+        std::cout << "Decrement grade: ";
+        b.decrementGrade();
+        std::cout << b.getGrade() << "\n";
     }
     catch (const std::exception & e)
     {
