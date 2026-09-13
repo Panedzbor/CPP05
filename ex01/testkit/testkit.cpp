@@ -24,7 +24,7 @@ std::string giveName(std::string who)
     std::string name;
     
     std::cout << "Enter " << who << "'s name: ";
-    while (collectString() == "")
+    while ((name = collectString()) == "")
         std::cout << "Give a valid name: ";
     std::cout << '\n';
     return name;

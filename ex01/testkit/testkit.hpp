@@ -2,8 +2,9 @@
 #ifndef testkit_HPP
 #define testkit_HPP
 
-# include <iostream>
-# include <string>
+#include <iostream>
+#include <string>
+#include <cstdlib> 
 
 char        getOption(const std::string& allOptions);
 std::string collectString();

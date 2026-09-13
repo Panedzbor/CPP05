@@ -1,9 +1,9 @@
 #pragma once
 
 #include <string>
-#include <cstdbool>
 #include <iostream>
-#include "Bureaucrat.hpp"
+
+class Bureaucrat;
 
 class Form {
     
@@ -21,13 +21,14 @@ class Form {
 
     private:
         std::string name;
-        bool isSigned;
         const int gradeToSign;
         const int gradeToExec;
+        bool isSigned;
 
 };
 
 std::ostream & operator<<(std::ostream &, const Form &);
+std::string toString(const Form &);
 
 enum GradeToGet
 {

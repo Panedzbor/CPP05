@@ -1,6 +1,8 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
-Bureaucrat::Bureaucrat(std::string name, int grade) : name(name), grade(grade)
+Bureaucrat::Bureaucrat(std::string name, int grade) 
+: name(name), grade(grade)
 {
     if (grade < minGrade)
         throw GradeTooHighException();
@@ -8,7 +10,9 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : name(name), grade(grade)
         throw GradeTooLowException();
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat & orig) : name(orig.name), grade(orig.grade) {}
+Bureaucrat::Bureaucrat(const Bureaucrat & orig) 
+: name(orig.name), grade(orig.grade) 
+{}
 
 Bureaucrat & Bureaucrat::operator=(const Bureaucrat & orig)
 {
@@ -48,11 +52,12 @@ void Bureaucrat::signForm(Form & F) const
     try
     {
         F.beSigned(*this);
-        std::cout << name << " signed " << F.get("name") << "\n";
+        std::cout << name << " signed " << F.get(std::string("name")) << "\n";
+        std::cout << "\n";
     }
     catch(const std::exception& e)
     {
-        std::cerr << name << " couldn't sign " << F.get("name") << " because " << e.what() << '\n';
+        std::cerr << name << " couldn't sign " << F.get(std::string("name")) << " because " << e.what() << '\n';
     }
 }
 
@@ -72,3 +77,9 @@ std::ostream & operator<<(std::ostream & out, const Bureaucrat & b)
     return out;
 }
 
+std::string toString(const Bureaucrat & B)
+{
+    std::ostringstream out;
+    out << B;
+    return out.str();
+}

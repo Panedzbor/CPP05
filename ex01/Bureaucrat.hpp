@@ -4,10 +4,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <exception>
-#include "Form.hpp"
+#include <sstream>
+
 
 #define minGrade 1
 #define maxGrade 150
+
+class Form;
 
 class Bureaucrat {
     public:
@@ -38,3 +41,4 @@ class Bureaucrat {
 };
 
 std::ostream & operator<<(std::ostream & out, const Bureaucrat & b);
+std::string toString(const Bureaucrat &);

@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 #include "testkit.hpp"
 #include <iomanip>
 
@@ -27,50 +28,77 @@ int setGrade(std::string name)
 {
     std::cout << "Set " << name << "'s grade: ";
     int grade = collectNumber();
+    std::cout << "\n";
     return grade; 
 }
 
-void createBureaucrat(Bureaucrat ** burs)
+bool createBureaucrat(Bureaucrat ** burs)
 {
     std::string name = giveName("Bureaucrat");
     int grade = setGrade(name);
-    Bureaucrat * newB = new Bureaucrat(name, grade);
-    int i;
-    for (i = 0; i < 10; i++)
+    try
     {
-        if (!burs[i])
+        Bureaucrat * newB = new Bureaucrat(name, grade);
+        int i;
+        for (i = 0; i < 10; i++)
         {
-            burs[i] = newB;
-            std::cout << "Bureaucrat " << name << "created\n";
-            break;
+            if (!burs[i])
+            {
+                burs[i] = newB;
+                std::cout << "Bureaucrat " << name << " created\n";
+                break;
+            }
         }
+        if (i == 10)
+        {
+            delete newB;
+            std::cout << "All slots full\n";
+        }
+        std::cout << "\n";
     }
-    if (i == 10)
-        std::cout << "All slots full\n";
-    std::cout << "\n";
+    catch(const std::exception& e)
+    {
+        std::cout << e.what() << "\n"; 
+        return false;
+    }
+    
+    return true;
 }
 
-void createForm(Form ** forms)
+bool createForm(Form ** forms)
 {
     std::string name = giveName("Form");
     int grade = setGrade(name);
-    Form * newF = new Form(name, grade, grade);
-    int i;
-    for (i = 0; i < 10; i++)
+    try
     {
-        if (!forms[i])
+        Form * newF = new Form(name, grade, grade);
+        int i;
+        for (i = 0; i < 10; i++)
         {
-            forms[i] = newF;
-            std::cout << "Form " << name << "created\n";
-            break;
+            if (!forms[i])
+            {
+                forms[i] = newF;
+                std::cout << "Form " << name << " created\n";
+                break;
+            }
         }
+        if (i == 10)
+        {
+            delete newF;
+            std::cout << "All slots full\n";
+        }
+        std::cout << "\n";
     }
-    if (i == 10)
-        std::cout << "All slots full\n";
-    std::cout << "\n";
+    catch(const std::exception& e)
+    {
+        std::cout << e.what() << "\n";
+        return false;
+    }
+    
+    return true;
 }
 
-void signForm(Bureaucrat ** burs, Form ** forms)
+bool signForm(Bureaucrat ** burs, Form ** forms)
 {
     std::cout << "Choose which from to sign: ";
     
@@ -85,7 +113,16 @@ void signForm(Bureaucrat ** burs, Form ** forms)
         std::cout << "\nWrong option. Try again: ";
     std::cout << "\n";
 
-    burs[burIndx]->signForm(*forms[formIndx]);
+    try
+    {
+        burs[burIndx-1]->signForm(*forms[formIndx-1]);
+    }
+    catch(...)
+    {
+        return false;
+    }
+    
+    return true;
 }
 
 bool executeCommand(char chOption, Bureaucrat ** burs, Form ** forms)
@@ -94,14 +131,11 @@ bool executeCommand(char chOption, Bureaucrat ** burs, Form ** forms)
     switch (option)
     {
         case 1:
-            createBureaucrat(burs);
-            break;
+            return createBureaucrat(burs);
         case 2:
-            createForm(forms);
-            break;
+            return createForm(forms);
         case 3:
-            signForm(burs, forms);
-            break;
+            return signForm(burs, forms);
         case 4:
             return false;
     }
@@ -112,15 +146,16 @@ void showResult(Bureaucrat ** burs, Form ** forms)
 {
     for (int i = 0; i < 10; i++)
     {
+        std::cout << std::setw(2) << i + 1;
         if (burs[i])
-            std::cout << std::setw(15) << burs[i];
+            std::cout << std::setw(40) << toString(*burs[i]);
         else
-            std::cout << std::setw(15) << "";
-        std::cout << " | ";
+            std::cout << std::setw(40) << "";
+        std::cout << "   ";
         if (forms[i])
-            std::cout << std::setw(30) << forms[i];
+            std::cout << std::setw(40) << toString(*forms[i]);
         else 
-            std::cout << std::setw(30) << "";
+            std::cout << std::setw(40) << "";
         std::cout << "\n";
     }
     std::cout << "\n";
@@ -143,12 +178,12 @@ int main()
     char option = 0;
     
     startProgram();
-    while (option != 'e')
+    while (option != '4')
     {
         showMenu();
         option = acceptOption();
-        executeCommand(option, burs, forms);
-        showResult(burs, forms);
+        if (executeCommand(option, burs, forms))
+            showResult(burs, forms);
     }
     finishProgram(burs, forms);
 
