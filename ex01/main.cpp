@@ -5,7 +5,7 @@
 
 void startProgram()
 {
-    std::cout << "Welcome to Bureaucrats siginig Forms simulator!\n";
+    std::cout << "Welcome to Bureaucrats signing Forms simulator!\n";
     std::cout << "\n";
 }
 
@@ -13,15 +13,16 @@ void showMenu()
 {
     std::cout << "Choose an option:\n";
     std::cout << "1. Create a Bureaucrat\n";
-    std::cout << "2. Create a Form\n";
-    std::cout << "3. Sign a Form\n";
-    std::cout << "4. Exit\n";
+    std::cout << "2. Edit a Bureaucrat\n";
+    std::cout << "3. Create a Form\n";
+    std::cout << "4. Sign a Form\n";
+    std::cout << "5. Exit\n";
     std::cout << "\n";
 }
 
 char acceptOption()
 {
-    return getOption("1234");
+    return getOption("12345");
 }
 
 int setGrade(std::string name)
@@ -62,6 +63,33 @@ bool createBureaucrat(Bureaucrat ** burs)
         return false;
     }
     
+    return true;
+}
+
+bool editBureaucrat(Bureaucrat ** burs)
+{
+    std::cout << "Choose which Bureaucrat to edit: ";
+    
+    int burIndx;
+    while ((burIndx = collectNumber()) < 1 || burIndx > 10)
+        std::cout << "\nWrong option. Try again: ";
+    std::cout << "\n";
+    
+    std::cout << *burs[burIndx-1] << "\n";
+    std::cout << "Choose 1 to increment bureaucarat's grade; choose 2 to decrement bureaucrat's grade\n";
+    char option = getOption("12");
+    try
+    {
+        if (option == '1')
+            burs[burIndx-1]->incrementGrade();
+        else
+            burs[burIndx-1]->decrementGrade();
+    }
+    catch(...)
+    {
+        return false;
+    }
+
     return true;
 }
 
@@ -133,10 +161,12 @@ bool executeCommand(char chOption, Bureaucrat ** burs, Form ** forms)
         case 1:
             return createBureaucrat(burs);
         case 2:
-            return createForm(forms);
+            return editBureaucrat(burs);
         case 3:
-            return signForm(burs, forms);
+            return createForm(forms);
         case 4:
+            return signForm(burs, forms);
+        case 5:
             return false;
     }
     return true;
@@ -178,7 +208,7 @@ int main()
     char option = 0;
     
     startProgram();
-    while (option != '4')
+    while (option != '5')
     {
         showMenu();
         option = acceptOption();
