@@ -24,7 +24,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 
 void ShrubberyCreationForm::createFile() const
 {
-    std::ofstream file(target + "_shrubbery");
+    std::ofstream file((target + "_shrubbery").c_str());
     if (!file)
         throw std::runtime_error("Could not create shrubbery file");
 
@@ -37,5 +37,5 @@ void ShrubberyCreationForm::createFile() const
 
 void ShrubberyCreationForm::executeAction() const
 {
-    createFile(); 
+    createFile();
 }

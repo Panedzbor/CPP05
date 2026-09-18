@@ -6,12 +6,12 @@
 class Bureaucrat;
 
 class AForm {
-    
+
     public:
         AForm(std::string name, int gradeToSign, int gradeToExec);
         AForm(const AForm &);
         AForm & operator=(const AForm &);
-        ~AForm();
+        virtual ~AForm();
 
         std::string get(std::string name) const;
         bool get(bool isSigned) const;

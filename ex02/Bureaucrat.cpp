@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 
-Bureaucrat::Bureaucrat(std::string name, int grade) 
+Bureaucrat::Bureaucrat(std::string name, int grade)
 : name(name), grade(grade)
 {
     if (grade < minGrade)
@@ -10,8 +10,8 @@ Bureaucrat::Bureaucrat(std::string name, int grade)
         throw GradeTooLowException();
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat & orig) 
-: name(orig.name), grade(orig.grade) 
+Bureaucrat::Bureaucrat(const Bureaucrat & orig)
+: name(orig.name), grade(orig.grade)
 {}
 
 Bureaucrat & Bureaucrat::operator=(const Bureaucrat & orig)
@@ -58,6 +58,20 @@ void Bureaucrat::signForm(AForm & F) const
     catch(const std::exception& e)
     {
         std::cerr << name << " couldn't sign " << F.get(std::string("name")) << " because " << e.what() << '\n';
+    }
+}
+
+void Bureaucrat::executeForm(const AForm & F) const
+{
+    try
+    {
+        F.execute(*this);
+        std::cout << name << " executed " << F.get(std::string("name")) << "\n";
+        std::cout << "\n";
+    }
+    catch(const std::exception & e)
+    {
+        std::cerr << name << " couldn't execute " << F.get(std::string("name")) << " because " << e.what() << '\n';
     }
 }
 

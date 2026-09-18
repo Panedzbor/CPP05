@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 
-AForm::AForm(std::string name, int gS, int gE) 
+AForm::AForm(std::string name, int gS, int gE)
 : name(name), gradeToSign(gS), gradeToExec(gE), isSigned(false)
 {
     if (gradeToSign < minGrade)
@@ -9,7 +9,7 @@ AForm::AForm(std::string name, int gS, int gE)
     if (gradeToSign > maxGrade)
         throw Bureaucrat::GradeTooLowException();
 }
-    
+
 AForm::AForm(const AForm & orig)
 : name(orig.name), gradeToSign(orig.gradeToSign), gradeToExec(orig.gradeToExec), isSigned(orig.isSigned)
 {}
@@ -21,7 +21,7 @@ AForm & AForm::operator=(const AForm & orig)
     return *this;
 }
 
-AForm::~AForm() 
+AForm::~AForm()
 {}
 
 std::string AForm::get(std::string name) const
@@ -29,7 +29,7 @@ std::string AForm::get(std::string name) const
     (void)name;
     return this->name;
 }
-    
+
 bool AForm::get(bool isSigned) const
 {
     (void)isSigned;
@@ -47,7 +47,7 @@ void AForm::beSigned(const Bureaucrat & mrB)
     int bGrade = mrB.getGrade();
     if (bGrade > gradeToSign)
         throw Bureaucrat::GradeTooLowException();
-    
+
     isSigned = true;
 }
 
@@ -67,7 +67,7 @@ const char * AForm::FormNotSignedException::what() const throw ()
 
 std::ostream & operator<<(std::ostream & out, const AForm & f)
 {
-    out << f.get(std::string("name")) << ", Form grade " << f.get(1) << " status: " << f.get(true);
+    out << f.get(std::string("name")) << ", sign grade " << f.get(1) << ", exec grade " << f.get(2) << " status: " << f.get(true);
     return out;
 }
 

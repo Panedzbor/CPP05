@@ -27,12 +27,13 @@ void RobotomyRequestForm::robotomize() const
 
     std::cout << "~^_^-!@#$% ";
     if (attempts++ % 2 == 0)
-        std::cout << target << "has been robotomized successfully!\n";
+        std::cout << target << " has been robotomized successfully!\n";
     else
         std::cout << "robotomy failed -_-\n";
+    std::cout << "\n";
 }
 
 void RobotomyRequestForm::executeAction() const
 {
-    robotomize(); 
+    robotomize();
 }
