@@ -32,6 +32,7 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 	$(MAKE) -C $(TESTKIT_DIR) fclean
+	$(RM) *_shrubbery
 
 re: fclean all
 

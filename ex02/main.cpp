@@ -100,7 +100,6 @@ bool editBureaucrat(Bureaucrat ** burs)
 
 bool createSCForm(AForm ** forms)
 {
-    std::string name = giveName("ShrubberyCreationForm");
     try
     {
         std::cout << "Enter the target: ";
@@ -114,7 +113,7 @@ bool createSCForm(AForm ** forms)
             if (!forms[i])
             {
                 forms[i] = newF;
-                std::cout << "ShrubberyCreationForm " << name << " created\n";
+                std::cout << "ShrubberyCreationForm created\n";
                 break;
             }
         }
@@ -136,7 +135,6 @@ bool createSCForm(AForm ** forms)
 
 bool createRRForm(AForm ** forms)
 {
-    std::string name = giveName("RobotomyRequestForm");
     try
     {
         std::cout << "Enter the target: ";
@@ -150,7 +148,7 @@ bool createRRForm(AForm ** forms)
             if (!forms[i])
             {
                 forms[i] = newF;
-                std::cout << "RobotomyRequestForm " << name << " created\n";
+                std::cout << "RobotomyRequestForm created\n";
                 break;
             }
         }
@@ -172,7 +170,6 @@ bool createRRForm(AForm ** forms)
 
 bool createPPForm(AForm ** forms)
 {
-    std::string name = giveName("PresidentialPardonForm");
     try
     {
         std::cout << "Enter the target: ";
@@ -186,7 +183,7 @@ bool createPPForm(AForm ** forms)
             if (!forms[i])
             {
                 forms[i] = newF;
-                std::cout << "PresidentialPardonForm " << name << " created\n";
+                std::cout << "PresidentialPardonForm created\n";
                 break;
             }
         }
